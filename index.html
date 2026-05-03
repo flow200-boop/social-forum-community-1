@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus - Community Forum</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="overlay active">
+        <div class="login-modal glass-panel">
+            <div class="logo">
+                <i class="fas fa-layer-group"></i> Nexus
+            </div>
+            <h2>Welcome to the Community</h2>
+            <p>Join the conversation and connect with others.</p>
+            <form id="login-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username-input" placeholder="Choose a username..." required autocomplete="off">
+                </div>
+                <button type="submit" class="btn-primary">Enter Forum <i class="fas fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-layer-group"></i> Nexus
+                </div>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <h3><i class="fas fa-compass"></i> Discover</h3>
+                    <ul class="nav-links">
+                        <li class="active"><a href="#"><i class="fas fa-fire"></i> Trending</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Recent</a></li>
+                        <li><a href="#"><i class="fas fa-star"></i> Top Rated</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3><i class="fas fa-hashtag"></i> Communities</h3>
+                    <ul class="nav-links channel-list">
+                        <li class="active" data-channel="general"><a href="#"><span class="hash">#</span> general-chat</a></li>
+                        <li data-channel="technology"><a href="#"><span class="hash">#</span> technology</a></li>
+                        <li data-channel="gaming"><a href="#"><span class="hash">#</span> gaming</a></li>
+                        <li data-channel="music"><a href="#"><span class="hash">#</span> music</a></li>
+                        <li data-channel="help"><a href="#"><span class="hash">#</span> help-and-support</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar" id="current-user-avatar">?</div>
+                    <div class="user-info">
+                        <span class="username" id="current-username">Guest</span>
+                        <span class="status"><span class="status-dot online"></span> Online</span>
+                    </div>
+                    <button id="logout-btn" class="btn-icon" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header glass-panel">
+                <div class="header-left">
+                    <button id="mobile-menu-btn" class="btn-icon mobile-only"><i class="fas fa-bars"></i></button>
+                    <h1 id="current-channel-title"><i class="fas fa-hashtag"></i> general-chat</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search community...">
+                    </div>
+                    <button class="btn-icon"><i class="fas fa-bell"></i></button>
+                </div>
+            </header>
+
+            <!-- Chat Area -->
+            <div class="chat-container">
+                <div class="messages-area" id="messages-area">
+                    <!-- Messages will be injected here -->
+                    <div class="welcome-message">
+                        <i class="fas fa-comments"></i>
+                        <h2>Welcome to #general-chat</h2>
+                        <p>This is the start of the #general-chat community. Say hello!</p>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-area glass-panel">
+                    <form id="message-form">
+                        <button type="button" class="btn-icon attach-btn"><i class="fas fa-plus-circle"></i></button>
+                        <input type="text" id="message-input" placeholder="Message #general-chat..." autocomplete="off">
+                        <button type="button" class="btn-icon emoji-btn"><i class="far fa-smile"></i></button>
+                        <button type="submit" class="btn-primary send-btn"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar (Members) -->
+        <aside class="members-sidebar glass-panel">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-users"></i> Members</h3>
+            </div>
+            <div class="members-list">
+                <div class="member-category">Online — 3</div>
+                <div class="member-item">
+                    <div class="avatar" style="background: linear-gradient(135deg, #FF6B6B, #FF8E53)">S</div>
+                    <div class="member-info">
+                        <span class="member-name">System<span class="badge admin">Admin</span></span>
+                        <span class="member-status">Watching over things</span>
+                    </div>
+                </div>
+                <div class="member-item" id="my-member-item" style="display: none;">
+                    <div class="avatar" id="my-member-avatar">?</div>
+                    <div class="member-info">
+                        <span class="member-name" id="my-member-name">User</span>
+                        <span class="member-status">Just joined</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
