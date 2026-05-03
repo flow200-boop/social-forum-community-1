@@ -5,15 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const usernameInput = document.getElementById('username-input');
     const appContainer = document.querySelector('.app-container');
     
-    const messageForm = document.getElementById('message-form');
-    const messageInput = document.getElementById('message-input');
-    const messagesArea = document.getElementById('messages-area');
+    const createPostForm = document.getElementById('create-post-form');
+    const postContent = document.getElementById('post-content');
+    const postTag = document.getElementById('post-tag');
+    const postsList = document.getElementById('posts-list');
     
     const channels = document.querySelectorAll('.channel-list li');
     const currentChannelTitle = document.getElementById('current-channel-title');
     
     const currentUserAvatar = document.getElementById('current-user-avatar');
     const currentUsername = document.getElementById('current-username');
+    const postAvatar = document.getElementById('post-avatar');
     const logoutBtn = document.getElementById('logout-btn');
     
     const myMemberItem = document.getElementById('my-member-item');
@@ -22,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // State
     let currentUser = null;
-    let currentChannel = 'general';
+    let currentChannel = 'Community Section';
     
     // Generate random avatar gradient
     const getAvatarGradient = (name) => {
@@ -35,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ['#F77062', '#FE5196']
         ];
         
-        // Simple hash to pick consistent color for a name
         let hash = 0;
         for (let i = 0; i < name.length; i++) {
             hash = name.charCodeAt(i) + ((hash << 5) - hash);
@@ -55,6 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
+    // Simple HTML escaper
+    function escapeHTML(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
     // Login Handle
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -71,6 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
             currentUserAvatar.style.background = gradient;
             currentUsername.textContent = username;
             
+            postAvatar.textContent = initial;
+            postAvatar.style.background = gradient;
+
             myMemberAvatar.textContent = initial;
             myMemberAvatar.style.background = gradient;
             myMemberName.textContent = username;
@@ -80,14 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
             loginOverlay.classList.remove('active');
             setTimeout(() => {
                 appContainer.classList.add('visible');
-                messageInput.focus();
-                
-                // Add system join message
-                addMessage({
-                    author: 'System',
-                    text: `${username} just slid into the forum.`,
-                    isSystem: true
-                });
             }, 300);
         }
     });
@@ -116,87 +119,154 @@ document.addEventListener('DOMContentLoaded', () => {
             // Update header
             const channelName = channel.getAttribute('data-channel');
             currentChannel = channelName;
-            currentChannelTitle.innerHTML = `<i class="fas fa-hashtag"></i> ${channelName}`;
+            currentChannelTitle.innerHTML = `<i class="fas fa-users"></i> ${channelName}`;
             
-            // Clear messages and add welcome
-            messagesArea.innerHTML = `
-                <div class="welcome-message">
-                    <i class="fas fa-comments"></i>
-                    <h2>Welcome to #${channelName}</h2>
-                    <p>This is the start of the #${channelName} community. Say hello!</p>
-                </div>
-            `;
-            
-            messageInput.placeholder = `Message #${channelName}...`;
-            messageInput.focus();
+            // If we are filtering by channel, we could filter posts here
         });
     });
 
-    // Message Sending
-    messageForm.addEventListener('submit', (e) => {
+    // Post Creation
+    createPostForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const text = messageInput.value.trim();
+        const text = postContent.value.trim();
+        const tag = postTag.value.trim();
         
-        if (text.length > 0 && currentUser) {
-            addMessage({
-                author: currentUser,
-                text: text,
-                isSystem: false
-            });
-            messageInput.value = '';
-            
-            // Simulate bot reply in some channels
-            if (currentChannel === 'help' && Math.random() > 0.5) {
-                setTimeout(() => {
-                    addMessage({
-                        author: 'System',
-                        text: `Thanks for asking in #help-and-support, ${currentUser}. Someone will assist you shortly!`,
-                        isAdmin: true
-                    });
-                }, 1000);
-            }
+        if (text.length > 0 && tag.length > 0 && currentUser) {
+            addPost(currentUser, text, tag);
+            postContent.value = '';
+            postTag.value = '';
         }
     });
 
-    // Add Message to DOM
-    function addMessage({ author, text, isSystem = false, isAdmin = false }) {
-        const messageEl = document.createElement('div');
-        messageEl.className = `message ${isSystem ? 'system' : ''}`;
+    // Add Post to DOM
+    function addPost(author, content, tag) {
+        const postEl = document.createElement('div');
+        postEl.className = `post-card glass-panel`;
         
         const initial = getInitial(author);
-        const gradient = author === 'System' 
-            ? 'linear-gradient(135deg, #FF6B6B, #FF8E53)' 
-            : getAvatarGradient(author);
+        const gradient = getAvatarGradient(author);
 
-        const adminBadge = isAdmin || author === 'System' 
-            ? '<span class="badge admin" style="margin-left: 8px;">Admin</span>' 
-            : '';
-
-        messageEl.innerHTML = `
-            <div class="avatar" style="background: ${gradient}">${initial}</div>
-            <div class="message-content">
-                <div class="message-header">
-                    <span class="message-author">${author} ${adminBadge}</span>
-                    <span class="message-time">${formatTime()}</span>
+        postEl.innerHTML = `
+            <div class="post-author-info">
+                <div class="avatar" style="background: ${gradient}">${initial}</div>
+                <div class="author-details">
+                    <span class="author-name">${author}</span>
+                    <span class="post-time">${formatTime()}</span>
                 </div>
-                <div class="message-text">${escapeHTML(text)}</div>
+            </div>
+            <div class="post-tag-badge"><i class="fas fa-tag"></i> ${escapeHTML(tag)}</div>
+            <div class="post-content">
+                ${escapeHTML(content)}
+            </div>
+            <div class="post-interact-bar">
+                <button class="interact-btn like-btn"><i class="far fa-thumbs-up"></i> <span class="count">0</span></button>
+                <button class="interact-btn dislike-btn"><i class="far fa-thumbs-down"></i> <span class="count">0</span></button>
+                <button class="interact-btn reply-btn"><i class="far fa-comment"></i> Reply</button>
+            </div>
+            
+            <div class="replies-section">
+                <div class="replies-list"></div>
+                <div class="reply-input-wrapper">
+                    <input type="text" class="reply-input" placeholder="Write a reply..." autocomplete="off">
+                    <button class="btn-icon send-reply-btn" style="background: var(--primary); color: white;"><i class="fas fa-paper-plane"></i></button>
+                </div>
             </div>
         `;
         
-        messagesArea.appendChild(messageEl);
-        scrollToBottom();
+        // Add at the top
+        postsList.prepend(postEl);
+        
+        // Bind Interactions
+        bindPostInteractions(postEl);
     }
 
-    function scrollToBottom() {
-        messagesArea.scrollTop = messagesArea.scrollHeight;
+    // Function to handle interactions for any post (existing or new)
+    function bindPostInteractions(postEl) {
+        const likeBtn = postEl.querySelector('.like-btn');
+        const dislikeBtn = postEl.querySelector('.dislike-btn');
+        const replyBtn = postEl.querySelector('.reply-btn');
+        const repliesSection = postEl.querySelector('.replies-section');
+        const repliesList = postEl.querySelector('.replies-list');
+        const replyInput = postEl.querySelector('.reply-input');
+        const sendReplyBtn = postEl.querySelector('.send-reply-btn');
+
+        // Like Handle
+        likeBtn.addEventListener('click', () => {
+            const countSpan = likeBtn.querySelector('.count');
+            if (likeBtn.classList.contains('active')) {
+                likeBtn.classList.remove('active');
+                countSpan.textContent = parseInt(countSpan.textContent) - 1;
+            } else {
+                likeBtn.classList.add('active');
+                countSpan.textContent = parseInt(countSpan.textContent) + 1;
+                // remove dislike if active
+                if (dislikeBtn.classList.contains('active')) {
+                    dislikeBtn.classList.remove('active');
+                    dislikeBtn.querySelector('.count').textContent = parseInt(dislikeBtn.querySelector('.count').textContent) - 1;
+                }
+            }
+        });
+
+        // Dislike Handle
+        dislikeBtn.addEventListener('click', () => {
+            const countSpan = dislikeBtn.querySelector('.count');
+            if (dislikeBtn.classList.contains('active')) {
+                dislikeBtn.classList.remove('active');
+                countSpan.textContent = parseInt(countSpan.textContent) - 1;
+            } else {
+                dislikeBtn.classList.add('active');
+                countSpan.textContent = parseInt(countSpan.textContent) + 1;
+                // remove like if active
+                if (likeBtn.classList.contains('active')) {
+                    likeBtn.classList.remove('active');
+                    likeBtn.querySelector('.count').textContent = parseInt(likeBtn.querySelector('.count').textContent) - 1;
+                }
+            }
+        });
+
+        // Reply Toggle
+        replyBtn.addEventListener('click', () => {
+            repliesSection.classList.toggle('visible');
+            if(repliesSection.classList.contains('visible')) {
+                replyInput.focus();
+            }
+        });
+
+        // Send Reply
+        const handleSendReply = () => {
+            const text = replyInput.value.trim();
+            if(text.length > 0 && currentUser) {
+                const replyEl = document.createElement('div');
+                replyEl.className = 'reply-item';
+                
+                const initial = getInitial(currentUser);
+                const gradient = getAvatarGradient(currentUser);
+
+                replyEl.innerHTML = `
+                    <div class="avatar" style="background: ${gradient}">${initial}</div>
+                    <div class="reply-content">
+                        <div class="reply-header">
+                            <span class="reply-author">${currentUser}</span>
+                            <span class="reply-time">${formatTime()}</span>
+                        </div>
+                        <div class="reply-text">${escapeHTML(text)}</div>
+                    </div>
+                `;
+                
+                repliesList.appendChild(replyEl);
+                replyInput.value = '';
+            }
+        };
+
+        sendReplyBtn.addEventListener('click', handleSendReply);
+        replyInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') handleSendReply();
+        });
     }
 
-    // Simple HTML escaper
-    function escapeHTML(str) {
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
-    }
+    // Bind interactions for default post
+    const existingPosts = document.querySelectorAll('.post-card');
+    existingPosts.forEach(bindPostInteractions);
 
     // Initialize
     usernameInput.focus();

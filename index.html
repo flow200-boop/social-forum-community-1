@@ -50,11 +50,10 @@
                 <div class="nav-section">
                     <h3><i class="fas fa-hashtag"></i> Communities</h3>
                     <ul class="nav-links channel-list">
-                        <li class="active" data-channel="general"><a href="#"><span class="hash">#</span> general-chat</a></li>
-                        <li data-channel="technology"><a href="#"><span class="hash">#</span> technology</a></li>
-                        <li data-channel="gaming"><a href="#"><span class="hash">#</span> gaming</a></li>
-                        <li data-channel="music"><a href="#"><span class="hash">#</span> music</a></li>
-                        <li data-channel="help"><a href="#"><span class="hash">#</span> help-and-support</a></li>
+                        <li class="active" data-channel="Community Section"><a href="#"><span class="hash">#</span> Community Section</a></li>
+                        <li data-channel="Announcements"><a href="#"><span class="hash">#</span> Announcements</a></li>
+                        <li data-channel="Technology"><a href="#"><span class="hash">#</span> Technology</a></li>
+                        <li data-channel="Help"><a href="#"><span class="hash">#</span> Help & Support</a></li>
                     </ul>
                 </div>
             </div>
@@ -77,7 +76,7 @@
             <header class="main-header glass-panel">
                 <div class="header-left">
                     <button id="mobile-menu-btn" class="btn-icon mobile-only"><i class="fas fa-bars"></i></button>
-                    <h1 id="current-channel-title"><i class="fas fa-hashtag"></i> general-chat</h1>
+                    <h1 id="current-channel-title"><i class="fas fa-users"></i> Community Section</h1>
                 </div>
                 <div class="header-right">
                     <div class="search-bar">
@@ -88,25 +87,47 @@
                 </div>
             </header>
 
-            <!-- Chat Area -->
-            <div class="chat-container">
-                <div class="messages-area" id="messages-area">
-                    <!-- Messages will be injected here -->
-                    <div class="welcome-message">
-                        <i class="fas fa-comments"></i>
-                        <h2>Welcome to #general-chat</h2>
-                        <p>This is the start of the #general-chat community. Say hello!</p>
+            <!-- Feed Area -->
+            <div class="feed-container" id="feed-container">
+                <!-- Create Post Box -->
+                <div class="create-post-box glass-panel">
+                    <div class="post-creator-header">
+                        <div class="avatar" id="post-avatar">?</div>
+                        <h3>Create a Post</h3>
                     </div>
+                    <form id="create-post-form">
+                        <textarea id="post-content" placeholder="What's on your mind? Share it with the community..." required></textarea>
+                        <div class="post-actions-row">
+                            <div class="tag-input-group">
+                                <i class="fas fa-tag"></i>
+                                <input type="text" id="post-tag" placeholder="Add a tag (e.g. general)" required autocomplete="off">
+                            </div>
+                            <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Post</button>
+                        </div>
+                    </form>
                 </div>
 
-                <!-- Input Area -->
-                <div class="input-area glass-panel">
-                    <form id="message-form">
-                        <button type="button" class="btn-icon attach-btn"><i class="fas fa-plus-circle"></i></button>
-                        <input type="text" id="message-input" placeholder="Message #general-chat..." autocomplete="off">
-                        <button type="button" class="btn-icon emoji-btn"><i class="far fa-smile"></i></button>
-                        <button type="submit" class="btn-primary send-btn"><i class="fas fa-paper-plane"></i></button>
-                    </form>
+                <!-- Posts List -->
+                <div id="posts-list">
+                    <!-- Default Post Example -->
+                    <div class="post-card glass-panel">
+                        <div class="post-author-info">
+                            <div class="avatar" style="background: linear-gradient(135deg, #FF6B6B, #FF8E53)">S</div>
+                            <div class="author-details">
+                                <span class="author-name">System <span class="badge admin">Admin</span></span>
+                                <span class="post-time">Just now</span>
+                            </div>
+                        </div>
+                        <div class="post-tag-badge"><i class="fas fa-tag"></i> announcement</div>
+                        <div class="post-content">
+                            Welcome to the Community Section! This is where you can post your thoughts, ideas, and interact with other users. You can like, dislike, and reply to posts.
+                        </div>
+                        <div class="post-interact-bar">
+                            <button class="interact-btn like-btn"><i class="far fa-thumbs-up"></i> <span class="count">42</span></button>
+                            <button class="interact-btn dislike-btn"><i class="far fa-thumbs-down"></i> <span class="count">0</span></button>
+                            <button class="interact-btn reply-btn"><i class="far fa-comment"></i> Reply</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
