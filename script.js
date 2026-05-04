@@ -268,6 +268,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const existingPosts = document.querySelectorAll('.post-card');
     existingPosts.forEach(bindPostInteractions);
 
+    // Generate 100 random posts
+    const randomAuthors = ['Alice', 'Bob', 'Charlie', 'Dave', 'Eve', 'Frank', 'Grace', 'Heidi', 'Ivan', 'Judy', 'Mario', 'Luigi', 'Peach', 'Toad', 'Bowser'];
+    const randomTags = ['General', 'Tech', 'Random', 'Gaming', 'Help', 'News', 'Showcase', 'Discussion', 'Off-Topic'];
+    const randomContents = [
+        "Just learned something new today!",
+        "Does anyone know how to fix this bug?",
+        "I love this community so much.",
+        "Check out my latest project!",
+        "What's everyone's favorite programming language?",
+        "Having a great day today.",
+        "Can't believe what just happened...",
+        "Here's a random thought...",
+        "Looking for teammates for a hackathon.",
+        "Just wanted to say hi!",
+        "Is it just me, or is coffee essential for coding?",
+        "Anyone here play chess?",
+        "I finally finished my portfolio website.",
+        "Who else is excited for the weekend?",
+        "What are you all working on right now?",
+        "This forum app is looking super clean!",
+        "Wow, the glassmorphism design is really nice.",
+        "Has anyone tried building a real-time messaging app?",
+        "Just beat my high score in Tetris.",
+        "Super Mario is the best game ever made, change my mind."
+    ];
+
+    for (let i = 0; i < 100; i++) {
+        const author = randomAuthors[Math.floor(Math.random() * randomAuthors.length)];
+        const tag = randomTags[Math.floor(Math.random() * randomTags.length)];
+        const content = randomContents[Math.floor(Math.random() * randomContents.length)] + " (Post #" + (i + 1) + ")";
+        addPost(author, content, tag);
+    }
+
     // Initialize
     usernameInput.focus();
 });
