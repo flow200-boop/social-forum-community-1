@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Supabase Initialization
+    const supabaseUrl = 'https://vszawwmvcrdqqdmymadw.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzemF3d212Y3JkcXFkbXltYWR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwMjM5NDEsImV4cCI6MjA5MzU5OTk0MX0.7v8zhLABu2LaD517Ph9kpNrNB41izR3PRrzkNap-oeE';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
     // DOM Elements
     const loginOverlay = document.getElementById('login-overlay');
     const loginForm = document.getElementById('login-form');
@@ -126,13 +131,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Post Creation
-    createPostForm.addEventListener('submit', (e) => {
+    createPostForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const text = postContent.value.trim();
         const tag = postTag.value.trim();
         
         if (text.length > 0 && tag.length > 0 && currentUser) {
+            // Optimistic UI update
             addPost(currentUser, text, tag);
+            
+            // Save to Supabase
+            const { error } = await supabase
+                .from('posts')
+                .insert([{ author: currentUser, content: text, tag: tag }]);
+            
+            if (error) console.error("Error creating post:", error);
+
             postContent.value = '';
             postTag.value = '';
         }
@@ -268,38 +282,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const existingPosts = document.querySelectorAll('.post-card');
     existingPosts.forEach(bindPostInteractions);
 
-    // Generate 100 random posts
-    const randomAuthors = ['Alice', 'Bob', 'Charlie', 'Dave', 'Eve', 'Frank', 'Grace', 'Heidi', 'Ivan', 'Judy', 'Mario', 'Luigi', 'Peach', 'Toad', 'Bowser'];
-    const randomTags = ['General', 'Tech', 'Random', 'Gaming', 'Help', 'News', 'Showcase', 'Discussion', 'Off-Topic'];
-    const randomContents = [
-        "Just learned something new today!",
-        "Does anyone know how to fix this bug?",
-        "I love this community so much.",
-        "Check out my latest project!",
-        "What's everyone's favorite programming language?",
-        "Having a great day today.",
-        "Can't believe what just happened...",
-        "Here's a random thought...",
-        "Looking for teammates for a hackathon.",
-        "Just wanted to say hi!",
-        "Is it just me, or is coffee essential for coding?",
-        "Anyone here play chess?",
-        "I finally finished my portfolio website.",
-        "Who else is excited for the weekend?",
-        "What are you all working on right now?",
-        "This forum app is looking super clean!",
-        "Wow, the glassmorphism design is really nice.",
-        "Has anyone tried building a real-time messaging app?",
-        "Just beat my high score in Tetris.",
-        "Super Mario is the best game ever made, change my mind."
-    ];
-
-    for (let i = 0; i < 100; i++) {
-        const author = randomAuthors[Math.floor(Math.random() * randomAuthors.length)];
-        const tag = randomTags[Math.floor(Math.random() * randomTags.length)];
-        const content = randomContents[Math.floor(Math.random() * randomContents.length)] + " (Post #" + (i + 1) + ")";
-        addPost(author, content, tag);
+    // Fetch Posts from Supabase
+    async function loadPosts() {
+        // Clear default mock post
+        postsList.innerHTML = '';
+        
+        const { data, error } = await supabase
+            .from('posts')
+            .select('*')
+            .order('created_at', { ascending: true }); // ascending so when we prepend it reverses, wait we need descending and append, or ascending and prepend. Actually, let's just order by id ascending and prepend so oldest is at bottom.
+            
+        if (error) {
+            console.error('Error fetching posts:', error);
+            return;
+        }
+        
+        if (data) {
+            data.forEach(post => {
+                addPost(post.author, post.content, post.tag);
+            });
+        }
     }
+    
+    // Initial Load
+    loadPosts();
 
     // Initialize
     usernameInput.focus();
