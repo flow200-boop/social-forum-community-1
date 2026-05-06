@@ -204,6 +204,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const replyInput = postEl.querySelector('.reply-input');
         const sendReplyBtn = postEl.querySelector('.send-reply-btn');
 
+        if (!likeBtn || !dislikeBtn || !replyBtn || !repliesSection || !repliesList || !replyInput || !sendReplyBtn) {
+            return; // Skip binding if elements are missing
+        }
+
         // Like Handle
         likeBtn.addEventListener('click', () => {
             const countSpan = likeBtn.querySelector('.count');
