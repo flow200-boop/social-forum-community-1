@@ -30,7 +30,7 @@
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.45);
     --shadow-glow: 0 0 30px rgba(100, 181, 246, 0.12);
-    --backdrop-blur: blur(20px);
+    --backdrop-blur: blur(40px);
     
     /* Transitions */
     --transition-fast: 0.15s ease;
@@ -59,13 +59,16 @@ body {
 
 /* Deep Ocean Glass Utilities */
 .glass-panel {
-    background: rgba(25, 55, 85, 0.35);
-    backdrop-filter: var(--backdrop-blur);
-    -webkit-backdrop-filter: var(--backdrop-blur);
-    border: 1px solid rgba(100, 160, 220, 0.15);
+    background: rgba(30, 60, 95, 0.45);
+    backdrop-filter: blur(40px) saturate(1.4);
+    -webkit-backdrop-filter: blur(40px) saturate(1.4);
+    border: 1px solid rgba(130, 190, 255, 0.18);
+    border-top-color: rgba(180, 220, 255, 0.25);
+    border-left-color: rgba(160, 210, 255, 0.2);
     box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(150, 200, 255, 0.08);
+        0 8px 32px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(180, 220, 255, 0.15),
+        inset 0 0 20px rgba(80, 140, 200, 0.05);
     border-radius: 16px;
 }
 
@@ -283,9 +286,14 @@ input, button, textarea {
     width: var(--sidebar-width);
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--border);
-    border-radius: 24px;
+    border: 1px solid rgba(130, 190, 255, 0.18);
+    border-top-color: rgba(180, 220, 255, 0.25);
+    border-radius: 20px;
     z-index: 10;
+    background: rgba(30, 60, 95, 0.4);
+    backdrop-filter: blur(40px) saturate(1.4);
+    -webkit-backdrop-filter: blur(40px) saturate(1.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(180, 220, 255, 0.12);
 }
 
 .sidebar-header {
@@ -442,11 +450,13 @@ input, button, textarea {
     flex-direction: column;
     min-width: 0;
     position: relative;
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    background: var(--bg-glass);
-    backdrop-filter: var(--backdrop-blur);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(150,200,255,0.06);
+    border: 1px solid rgba(130, 190, 255, 0.18);
+    border-top-color: rgba(180, 220, 255, 0.22);
+    border-radius: 20px;
+    background: rgba(30, 60, 95, 0.4);
+    backdrop-filter: blur(40px) saturate(1.4);
+    -webkit-backdrop-filter: blur(40px) saturate(1.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(180, 220, 255, 0.1);
     overflow: hidden;
 }
 
@@ -804,9 +814,14 @@ input, button, textarea {
     width: var(--members-width);
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--border);
-    border-radius: 24px;
+    border: 1px solid rgba(130, 190, 255, 0.18);
+    border-top-color: rgba(180, 220, 255, 0.25);
+    border-radius: 20px;
     z-index: 10;
+    background: rgba(30, 60, 95, 0.4);
+    backdrop-filter: blur(40px) saturate(1.4);
+    -webkit-backdrop-filter: blur(40px) saturate(1.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(180, 220, 255, 0.12);
 }
 
 .members-sidebar .sidebar-header {
