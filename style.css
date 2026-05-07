@@ -1,36 +1,38 @@
 :root {
-    /* Deep Ocean Glass Palette */
-    --bg-base: #0f1923;
-    --bg-glass: rgba(120, 160, 200, 0.08);
-    --bg-glass-hover: rgba(140, 180, 220, 0.14);
-    --bg-glass-active: rgba(140, 180, 220, 0.22);
+    /* Soft Neumorphic Palette */
+    --bg-base: #e8ddd5;
+    --bg-panel: #ece3db;
+    --bg-glass: #ece3db;
+    --bg-glass-hover: #f2e9e1;
+    --bg-glass-active: #f5ede6;
     
-    --primary: #64b5f6;
-    --primary-hover: #90caf9;
-    --primary-glow: rgba(100, 181, 246, 0.3);
+    --primary: #e8a87c;
+    --primary-hover: #f0b88e;
+    --primary-glow: rgba(232, 168, 124, 0.3);
     
-    --accent: #f48fb1;
-    --success: #80cbc4;
-    --danger: #ef9a9a;
+    --accent: #f4a4b8;
+    --success: #a8d8c8;
+    --danger: #e8998a;
     
-    --text-main: #e0e8f0;
-    --text-muted: #94a8be;
-    --text-dark: #5e7a94;
+    --text-main: #4a3f3a;
+    --text-muted: #8a7e78;
+    --text-dark: #b0a5a0;
     
-    --border: rgba(150, 200, 255, 0.12);
-    --border-highlight: rgba(150, 200, 255, 0.25);
+    --border: rgba(255, 255, 255, 0.5);
+    --border-highlight: rgba(255, 255, 255, 0.8);
     
     /* Layout */
     --sidebar-width: 260px;
     --members-width: 240px;
     --header-height: 70px;
     
-    /* Shadows & Effects */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
-    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.45);
-    --shadow-glow: 0 0 30px rgba(100, 181, 246, 0.12);
-    --backdrop-blur: blur(40px);
+    /* Neumorphic Shadows */
+    --neu-shadow: 6px 6px 14px rgba(0, 0, 0, 0.08), -6px -6px 14px rgba(255, 255, 255, 0.7);
+    --neu-shadow-sm: 3px 3px 8px rgba(0, 0, 0, 0.06), -3px -3px 8px rgba(255, 255, 255, 0.6);
+    --neu-inset: inset 3px 3px 8px rgba(0, 0, 0, 0.06), inset -3px -3px 8px rgba(255, 255, 255, 0.6);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 8px 8px 20px rgba(0, 0, 0, 0.1), -8px -8px 20px rgba(255, 255, 255, 0.7);
     
     /* Transitions */
     --transition-fast: 0.15s ease;
@@ -45,25 +47,18 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: #0c1a2a url('bg.png') center/cover no-repeat fixed;
+    background: var(--bg-base);
     color: var(--text-main);
     height: 100vh;
     overflow: hidden;
 }
 
-/* Deep Ocean Glass Utilities */
+/* Neumorphic Soft UI Utilities */
 .glass-panel {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
-    -webkit-backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15),
-        inset 0 0 30px rgba(255, 255, 255, 0.03);
-    border-radius: 16px;
+    background: var(--bg-panel);
+    border: none;
+    box-shadow: var(--neu-shadow);
+    border-radius: 20px;
 }
 
 /* Typography & Basics */
@@ -96,25 +91,24 @@ input, button, textarea {
     background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: rgba(100, 160, 220, 0.2);
+    background: #d4cbc3;
     border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(100, 160, 220, 0.35);
+    background: #c4bab2;
 }
 
 /* Buttons */
 .btn-primary {
-    background: linear-gradient(135deg, #5c9ce6, #a78bfa, #f48fb1);
+    background: linear-gradient(135deg, var(--primary), var(--accent));
     color: white;
     padding: 10px 20px;
-    border-radius: 12px;
+    border-radius: 14px;
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition-normal);
-    box-shadow: 0 4px 15px rgba(100, 160, 230, 0.3), inset 0 1px 1px rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(12px);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1), -2px -2px 6px rgba(255, 255, 255, 0.5);
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -123,8 +117,8 @@ input, button, textarea {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(100, 160, 230, 0.4), inset 0 1px 1px rgba(255,255,255,0.2);
-    filter: brightness(1.1);
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.12), -3px -3px 8px rgba(255, 255, 255, 0.5);
+    filter: brightness(1.05);
 }
 
 .btn-icon {
@@ -157,8 +151,8 @@ input, button, textarea {
     font-weight: 600;
     color: white;
     font-size: 1.2rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    border: 2px solid rgba(255,255,255,0.15);
+    box-shadow: var(--neu-shadow-sm);
+    border: none;
 }
 
 /* Login Overlay */
@@ -168,8 +162,8 @@ input, button, textarea {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(20, 16, 30, 0.85);
-    backdrop-filter: blur(16px);
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -192,7 +186,7 @@ input, button, textarea {
     text-align: center;
     transform: translateY(20px);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: var(--shadow-lg), 0 0 60px rgba(30, 80, 140, 0.2);
+    box-shadow: var(--shadow-lg);
 }
 
 .overlay.active .login-modal {
@@ -202,7 +196,7 @@ input, button, textarea {
 .login-modal .logo {
     font-size: 2rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #90caf9, #64b5f6, #80cbc4);
+    background: linear-gradient(135deg, var(--primary), var(--accent), var(--success));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 20px;
@@ -233,9 +227,9 @@ input, button, textarea {
 
 .input-group input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow: inset 0 2px 6px rgba(0,0,0,0.2);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--bg-panel);
+    box-shadow: var(--neu-inset);
+    border: none;
     padding: 14px 14px 14px 44px;
     border-radius: 14px;
     color: var(--text-main);
@@ -244,9 +238,9 @@ input, button, textarea {
 }
 
 .input-group input:focus {
-    border-color: rgba(100,160,220,0.5);
-    box-shadow: 0 0 0 3px rgba(100, 160, 220, 0.15), inset 0 2px 6px rgba(0,0,0,0.15);
-    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--primary);
+    box-shadow: var(--neu-inset), 0 0 0 2px rgba(232, 168, 124, 0.2);
+    background: #f2e9e1;
 }
 
 .input-group input:focus + i {
@@ -280,15 +274,11 @@ input, button, textarea {
     width: var(--sidebar-width);
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 18px;
+    border: none;
+    border-radius: 24px;
     z-index: 10;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
-    -webkit-backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    background: var(--bg-panel);
+    box-shadow: var(--neu-shadow);
 }
 
 .sidebar-header {
@@ -305,13 +295,13 @@ input, button, textarea {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: linear-gradient(135deg, #90caf9, #64b5f6);
+    background: linear-gradient(135deg, var(--primary), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .sidebar-header .logo i {
-    -webkit-text-fill-color: #64b5f6;
+    -webkit-text-fill-color: var(--primary);
 }
 
 .sidebar-content {
@@ -381,7 +371,7 @@ input, button, textarea {
 .sidebar-footer {
     padding: 16px;
     border-top: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--bg-panel);
 }
 
 .user-profile {
@@ -445,14 +435,10 @@ input, button, textarea {
     flex-direction: column;
     min-width: 0;
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
-    -webkit-backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 24px;
+    background: var(--bg-panel);
+    box-shadow: var(--neu-shadow);
     overflow: hidden;
 }
 
@@ -507,8 +493,9 @@ input, button, textarea {
 }
 
 .search-bar input {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--bg-panel);
+    border: none;
+    box-shadow: var(--neu-inset);
     padding: 8px 16px 8px 36px;
     border-radius: 20px;
     color: var(--text-main);
@@ -519,8 +506,8 @@ input, button, textarea {
 
 .search-bar input:focus {
     width: 260px;
-    border-color: rgba(100,160,220,0.4);
-    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary);
+    background: #f2e9e1;
 }
 
 /* Feed Area (Community Posts) */
@@ -562,9 +549,9 @@ input, button, textarea {
 
 #create-post-form textarea {
     width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 14px;
+    background: var(--bg-panel);
+    border: none;
+    box-shadow: var(--neu-inset);
     padding: 16px;
     color: var(--text-main);
     font-size: 1rem;
@@ -575,9 +562,9 @@ input, button, textarea {
 }
 
 #create-post-form textarea:focus {
-    border-color: rgba(100,160,220,0.4);
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(100, 160, 220, 0.1);
+    border-color: var(--primary);
+    background: #f2e9e1;
+    box-shadow: var(--neu-inset), 0 0 0 2px rgba(232, 168, 124, 0.15);
 }
 
 .post-actions-row {
@@ -601,9 +588,9 @@ input, button, textarea {
 
 .tag-input-group input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 10px 14px 10px 40px;
+    background: var(--bg-panel);
+    border: none;
+    box-shadow: var(--neu-inset);
     border-radius: 10px;
     color: var(--text-main);
     font-size: 0.9rem;
@@ -611,8 +598,8 @@ input, button, textarea {
 }
 
 .tag-input-group input:focus {
-    border-color: rgba(100,160,220,0.4);
-    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary);
+    background: #f2e9e1;
 }
 
 /* Posts List */
@@ -664,7 +651,7 @@ input, button, textarea {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(100, 160, 220, 0.15);
+    background: rgba(232, 168, 124, 0.15);
     color: var(--primary);
     padding: 4px 12px;
     border-radius: 10px;
@@ -672,7 +659,7 @@ input, button, textarea {
     font-weight: 500;
     margin-bottom: 16px;
     text-transform: lowercase;
-    border: 1px solid rgba(100,160,220,0.15);
+    border: none;
 }
 
 .post-content {
@@ -742,7 +729,7 @@ input, button, textarea {
     gap: 12px;
     margin-bottom: 12px;
     padding-bottom: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .reply-item:last-child {
@@ -792,17 +779,17 @@ input, button, textarea {
 
 .reply-input-wrapper input {
     flex: 1;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 8px 12px;
+    background: var(--bg-panel);
+    border: none;
+    box-shadow: var(--neu-inset);
     border-radius: 10px;
     color: var(--text-main);
     font-size: 0.9rem;
 }
 
 .reply-input-wrapper input:focus {
-    border-color: rgba(100,160,220,0.4);
-    background: rgba(255,255,255,0.1);
+    border-color: var(--primary);
+    background: #f2e9e1;
 }
 
 /* Members Sidebar */
@@ -810,15 +797,11 @@ input, button, textarea {
     width: var(--members-width);
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 18px;
+    border: none;
+    border-radius: 24px;
     z-index: 10;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
-    -webkit-backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    background: var(--bg-panel);
+    box-shadow: var(--neu-shadow);
 }
 
 .members-sidebar .sidebar-header {
@@ -883,14 +866,14 @@ input, button, textarea {
 }
 
 .badge.admin {
-    background: rgba(100, 160, 220, 0.15);
-    color: var(--accent);
+    background: rgba(232, 168, 124, 0.2);
+    color: var(--primary);
     font-size: 0.6rem;
     padding: 2px 6px;
     border-radius: 6px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border: 1px solid rgba(100,160,220,0.12);
+    border: none;
 }
 
 .member-status {
