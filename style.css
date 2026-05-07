@@ -45,13 +45,14 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--bg-base);
+    background-color: #0c1a2a;
     background-image:
-        radial-gradient(ellipse at 20% 80%, rgba(15, 60, 100, 0.8) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(20, 80, 120, 0.7) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(30, 70, 110, 0.5) 0%, transparent 60%),
-        radial-gradient(ellipse at 70% 70%, rgba(10, 50, 80, 0.6) 0%, transparent 45%),
-        radial-gradient(ellipse at 30% 30%, rgba(40, 90, 130, 0.4) 0%, transparent 50%);
+        radial-gradient(ellipse at 15% 75%, rgba(20, 80, 160, 0.7) 0%, transparent 50%),
+        radial-gradient(ellipse at 75% 15%, rgba(30, 100, 150, 0.6) 0%, transparent 45%),
+        radial-gradient(ellipse at 50% 50%, rgba(15, 60, 110, 0.8) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 70%, rgba(40, 70, 120, 0.5) 0%, transparent 40%),
+        radial-gradient(ellipse at 25% 25%, rgba(50, 110, 160, 0.4) 0%, transparent 45%),
+        radial-gradient(ellipse at 60% 85%, rgba(20, 90, 140, 0.5) 0%, transparent 40%);
     color: var(--text-main);
     height: 100vh;
     overflow: hidden;
@@ -59,16 +60,16 @@ body {
 
 /* Deep Ocean Glass Utilities */
 .glass-panel {
-    background: rgba(30, 60, 95, 0.45);
-    backdrop-filter: blur(40px) saturate(1.4);
-    -webkit-backdrop-filter: blur(40px) saturate(1.4);
-    border: 1px solid rgba(130, 190, 255, 0.18);
-    border-top-color: rgba(180, 220, 255, 0.25);
-    border-left-color: rgba(160, 210, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
+    -webkit-backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(180, 220, 255, 0.15),
-        inset 0 0 20px rgba(80, 140, 200, 0.05);
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 0 30px rgba(255, 255, 255, 0.03);
     border-radius: 16px;
 }
 
@@ -286,14 +287,15 @@ input, button, textarea {
     width: var(--sidebar-width);
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(130, 190, 255, 0.18);
-    border-top-color: rgba(180, 220, 255, 0.25);
-    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 18px;
     z-index: 10;
-    background: rgba(30, 60, 95, 0.4);
-    backdrop-filter: blur(40px) saturate(1.4);
-    -webkit-backdrop-filter: blur(40px) saturate(1.4);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(180, 220, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
+    -webkit-backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .sidebar-header {
@@ -450,13 +452,14 @@ input, button, textarea {
     flex-direction: column;
     min-width: 0;
     position: relative;
-    border: 1px solid rgba(130, 190, 255, 0.18);
-    border-top-color: rgba(180, 220, 255, 0.22);
-    border-radius: 20px;
-    background: rgba(30, 60, 95, 0.4);
-    backdrop-filter: blur(40px) saturate(1.4);
-    -webkit-backdrop-filter: blur(40px) saturate(1.4);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(180, 220, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
+    -webkit-backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     overflow: hidden;
 }
 
@@ -814,14 +817,15 @@ input, button, textarea {
     width: var(--members-width);
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(130, 190, 255, 0.18);
-    border-top-color: rgba(180, 220, 255, 0.25);
-    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 18px;
     z-index: 10;
-    background: rgba(30, 60, 95, 0.4);
-    backdrop-filter: blur(40px) saturate(1.4);
-    -webkit-backdrop-filter: blur(40px) saturate(1.4);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(180, 220, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
+    -webkit-backdrop-filter: blur(40px) saturate(1.5) brightness(1.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .members-sidebar .sidebar-header {
